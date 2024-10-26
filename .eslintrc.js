@@ -8,7 +8,8 @@ module.exports = {
       {
         singleQuote: false,
         parser: "flow",
-        endOfLine: "auto"
+        endOfLine: "auto",
+        tabWidth: "4",
       },
     ],
     "react-native/no-unused-styles": "error",
