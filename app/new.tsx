@@ -1,18 +1,37 @@
 import { PlantlyButton, PlantlyImage } from '@/components'
 import { usePlantsStore } from '@/stores/plantsStore'
 import { theme } from '@/theme'
+import * as ImagePicker from "expo-image-picker"
 import { useRouter } from 'expo-router'
 import React, { useState } from 'react'
-import { Alert, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Alert, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 export default function NewScreen() {
 
     const [name, setName] = useState<string>("")
     const [days, setDays] = useState<string>("")
+    const [imageUri, setImageUri] = useState<string>("")
 
     const addPlant = usePlantsStore(state => state.addPlant);
     const router = useRouter();
+
+    const handleChooseImage = async () => {
+        if (Platform.OS === "web") {
+            return;
+        }
+
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 1
+        })
+
+        if (!result.canceled) {
+            setImageUri(result.assets[0].uri)
+        }
+    }
 
     const handleSubmit = () => {
         if (!name) {
@@ -36,7 +55,11 @@ export default function NewScreen() {
             )
         }
 
-        addPlant(name, Number(days));
+        addPlant({
+            name,
+            wateringFrequencyDays: Number(days),
+            imageUri
+        });
         router.navigate("/")
     }
 
@@ -46,11 +69,15 @@ export default function NewScreen() {
             contentContainerStyle={styles.contentContainer}
             keyboardShouldPersistTaps="handled"
         >
-            <View
+            <TouchableOpacity
                 style={styles.centered}
+                onPress={handleChooseImage}
+                activeOpacity={0.8}
             >
-                <PlantlyImage />
-            </View>
+                <PlantlyImage
+                    imageUri={imageUri}
+                />
+            </TouchableOpacity>
             <View>
                 <Text
                     style={styles.label}
@@ -111,5 +138,6 @@ const styles = StyleSheet.create({
     },
     centered: {
         alignItems: "center",
+        marginBottom: 24
     },
 })
