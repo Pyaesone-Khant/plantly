@@ -1,14 +1,83 @@
+import { PlantlyButton, PlantlyImage } from '@/components'
 import { theme } from '@/theme'
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useState } from 'react'
+import { Alert, StyleSheet, Text, TextInput, View } from 'react-native'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 export default function NewScreen() {
+
+    const [name, setName] = useState<string>("")
+    const [days, setDays] = useState<string>("")
+
+    const handleSubmit = () => {
+        if (!name) {
+            return Alert.alert(
+                "Validation Error",
+                "Please give your plant a name!"
+            )
+        }
+
+        if (!days) {
+            return Alert.alert(
+                "Validation Error",
+                `How often does ${name} need to be watered?`
+            )
+        }
+
+        if (Number.isNaN(Number(days))) {
+            return Alert.alert(
+                "Validation Error",
+                "Watering frequency must be a be a number",
+            )
+        }
+
+        console.log("Adding plant", name, days)
+    }
+
     return (
-        <View
+        <KeyboardAwareScrollView
             style={styles.container}
+            contentContainerStyle={styles.contentContainer}
+            keyboardShouldPersistTaps="handled"
         >
-            <Text>New Plant</Text>
-        </View>
+            <View
+                style={styles.centered}
+            >
+                <PlantlyImage />
+            </View>
+            <View>
+                <Text
+                    style={styles.label}
+                >
+                    Name
+                </Text>
+                <TextInput
+                    value={name}
+                    onChangeText={setName}
+                    style={styles.input}
+                    placeholder='E.g. Casper the Cactus'
+                    autoCapitalize='words'
+                />
+            </View>
+            <View>
+                <Text
+                    style={styles.label}
+                >
+                    Watering Frequency (every x days)
+                </Text>
+                <TextInput
+                    value={days}
+                    onChangeText={setDays}
+                    style={styles.input}
+                    placeholder='E.g. 13'
+                    keyboardType="number-pad"
+                />
+            </View>
+            <PlantlyButton
+                title='Add Plant'
+                onPress={handleSubmit}
+            />
+        </KeyboardAwareScrollView>
     )
 }
 
@@ -16,7 +85,25 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: theme.colorWhite,
-        justifyContent: "center",
-        alignItems: "center"
-    }
+    },
+    contentContainer: {
+        paddingTop: 24,
+        paddingHorizontal: 24,
+        paddingBottom: 100,
+    },
+    input: {
+        borderWidth: 2,
+        borderColor: theme.colorLightGrey,
+        padding: 12,
+        borderRadius: 6,
+        marginBottom: 24,
+        fontSize: 18,
+    },
+    label: {
+        fontSize: 18,
+        marginBottom: 8,
+    },
+    centered: {
+        alignItems: "center",
+    },
 })
