@@ -19,7 +19,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.wookidooki.plantly"
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -27,6 +28,12 @@
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "20d80c94-3252-4a76-b7c8-311f4c94e7fb"
+      }
+    },
+    "owner": "wookidooki"
   }
 }
