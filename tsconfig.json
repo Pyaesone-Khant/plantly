@@ -10,7 +10,8 @@
 		"**/*.ts",
 		"**/*.tsx",
 		"./app/**/*.ts",
-    "./stores/**/*.ts"
+    "./stores/**/*.ts",
+    "./components/**/*.{tsx,ts}"
 	],
   "exclude": ["node_modules", "babel.config.js"]
 }
