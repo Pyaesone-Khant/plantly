@@ -1,41 +1,22 @@
-import { theme } from "@/theme";
-import { Entypo, Feather } from "@expo/vector-icons";
-import { Tabs } from "expo-router";
-import React from "react";
+import { Stack } from 'expo-router'
+import React from 'react'
 
-export default function RootLayout() {
+export default function Layout() {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: theme.colorGreen,
-        tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: 600
-        },
-        tabBarStyle: {
-          height: 84, 
-          paddingTop: 8
-        }
-      }}
-    >
-      <Tabs.Screen
-        name="index"
+    <Stack>
+      <Stack.Screen
+        name='onboarding'
         options={{
-          title: "Home",
-          tabBarIcon: ({ size, color }) => (
-            <Entypo name="leaf" size={size} color={color} />
-          ),
+          presentation: "modal",
+          headerShown: false
         }}
       />
-      <Tabs.Screen
-        name="profile"
+      <Stack.Screen
+        name='(tabs)'
         options={{
-          title: "Profile",
-          tabBarIcon: ({ size, color }) => (
-            <Feather name="user" size={size} color={color} />
-          ),
+          headerShown: false
         }}
       />
-    </Tabs>
-  );
+    </Stack>
+  )
 }
