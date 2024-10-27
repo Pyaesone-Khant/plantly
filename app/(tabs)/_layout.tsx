@@ -1,9 +1,8 @@
 import { useUserStore } from "@/stores/userStore";
 import { theme } from "@/theme";
-import { AntDesign, Entypo, Feather } from "@expo/vector-icons";
-import { Link, Redirect, Tabs } from "expo-router";
+import { Entypo, Feather } from "@expo/vector-icons";
+import { Redirect, Tabs } from "expo-router";
 import React from "react";
-import { Pressable } from "react-native";
 
 export default function RootLayout() {
 
@@ -30,26 +29,12 @@ export default function RootLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="(home)"
         options={{
           title: "Home",
+          headerShown: false,
           tabBarIcon: ({ size, color }) => (
             <Entypo name="leaf" size={size} color={color} />
-          ),
-          headerRight: () => (
-            <Link
-              href={"/new"}
-              asChild
-            >
-              <Pressable
-                style={{
-                  marginRight: 16
-                }}
-                hitSlop={16}
-              >
-                <AntDesign name="pluscircleo" size={24} color={theme.colorGreen} />
-              </Pressable>
-            </Link>
           ),
         }}
       />
@@ -62,6 +47,7 @@ export default function RootLayout() {
           ),
         }}
       />
+
     </Tabs>
   );
 }
