@@ -1,11 +1,12 @@
+import { useUserStore } from "@/stores/userStore";
 import { theme } from "@/theme";
 import { Entypo, Feather } from "@expo/vector-icons";
 import { Redirect, Tabs } from "expo-router";
 import React from "react";
 
-const hasFinishedOnboarding = true;
-
 export default function RootLayout() {
+
+  const hasFinishedOnboarding = useUserStore(state => state.hasFinishedOnboarding)
 
   if (!hasFinishedOnboarding) {
     return (

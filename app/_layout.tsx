@@ -8,13 +8,15 @@ export default function Layout() {
         name='onboarding'
         options={{
           presentation: "modal",
-          headerShown: false
+          headerShown: false,
+          animation: "fade"
         }}
       />
       <Stack.Screen
         name='(tabs)'
         options={{
-          headerShown: false
+          headerShown: false,
+          animation: "fade"
         }}
       />
     </Stack>
